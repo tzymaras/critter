@@ -1,5 +1,8 @@
-package com.udacity.jdnd.course3.critter.user;
+package com.udacity.jdnd.course3.critter.user.persistence;
 
+import com.udacity.jdnd.course3.critter.user.persistence.EmployeeSkill;
+
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -8,7 +11,10 @@ import java.util.Set;
  * to the database directly.
  */
 public class EmployeeRequestDTO {
+    @NotEmpty
     private Set<EmployeeSkill> skills;
+
+    @NotEmpty
     private LocalDate date;
 
     public Set<EmployeeSkill> getSkills() {
