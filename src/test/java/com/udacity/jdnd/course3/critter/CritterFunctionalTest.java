@@ -2,9 +2,10 @@ package com.udacity.jdnd.course3.critter;
 
 import com.google.common.collect.*;
 import com.udacity.jdnd.course3.critter.pet.*;
+import com.udacity.jdnd.course3.critter.pet.dataobject.*;
 import com.udacity.jdnd.course3.critter.schedule.*;
 import com.udacity.jdnd.course3.critter.user.UserController;
-import com.udacity.jdnd.course3.critter.user.persistence.*;
+import com.udacity.jdnd.course3.critter.user.dataobject.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,8 @@
 package com.udacity.jdnd.course3.critter.user.service;
 
 import com.udacity.jdnd.course3.critter.user.exception.*;
-import com.udacity.jdnd.course3.critter.user.persistence.*;
+import com.udacity.jdnd.course3.critter.user.dataobject.*;
+import com.udacity.jdnd.course3.critter.user.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

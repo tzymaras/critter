@@ -1,9 +1,10 @@
-package com.udacity.jdnd.course3.critter.user.persistence;
+package com.udacity.jdnd.course3.critter.user.dataobject;
 
 import lombok.*;
-import org.hibernate.annotations.Nationalized;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.*;
 import java.time.DayOfWeek;
 import java.util.Set;
@@ -18,10 +19,11 @@ public class Employee {
     @GeneratedValue
     private long id;
 
+    @NonNull
     @NotBlank
     @Nationalized
     @Column(length = 500)
-    @NonNull
+    @Type(type = "nstring")
     private String name;
 
     @NotNull

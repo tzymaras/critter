@@ -1,8 +1,10 @@
 package com.udacity.jdnd.course3.critter.user;
 
-import com.udacity.jdnd.course3.critter.common.SimpleDTOMapper;
-import com.udacity.jdnd.course3.critter.user.persistence.*;
-import com.udacity.jdnd.course3.critter.user.service.EmployeeService;
+import com.udacity.jdnd.course3.critter.common.*;
+import com.udacity.jdnd.course3.critter.pet.dataobject.Pet;
+import com.udacity.jdnd.course3.critter.pet.service.PetService;
+import com.udacity.jdnd.course3.critter.user.dataobject.*;
+import com.udacity.jdnd.course3.critter.user.service.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,35 +23,57 @@ import java.util.stream.Collectors;
 @RequestMapping("/user")
 public class UserController {
     private final EmployeeService employeeService;
+    private final CustomerService customerService;
+    private final PetService petService;
 
-    public UserController(EmployeeService employeeService) {
+    private final CustomerConverter customerConverter;
+    private final EmployeeConverter employeeConverter;
+
+    public UserController(
+        EmployeeService employeeService,
+        CustomerService customerService,
+        PetService petService,
+        CustomerConverter customerConverter,
+        EmployeeConverter employeeConverter
+    ) {
         this.employeeService = employeeService;
+        this.customerService = customerService;
+        this.petService = petService;
+        this.customerConverter = customerConverter;
+        this.employeeConverter = employeeConverter;
     }
 
     @PostMapping("/customer")
-    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        throw new UnsupportedOperationException();
+    public CustomerDTO saveCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+        Customer customer = this.customerConverter.dtoToEntity(customerDTO);
+        Customer storedCustomer = this.customerService.save(customer);
+        return this.customerConverter.entityToDTO(storedCustomer);
     }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers() {
-        throw new UnsupportedOperationException();
+        return this.customerService.findAll()
+            .stream()
+            .map(this.customerConverter::entityToDTO)
+            .collect(Collectors.toList());
     }
 
     @GetMapping("/customer/pet/{petId}")
     public CustomerDTO getOwnerByPet(@PathVariable long petId) {
-        throw new UnsupportedOperationException();
+        Pet pet = this.petService.getPet(petId);
+        Customer customer = this.customerService.getOwnerByPet(pet);
+        return this.customerConverter.entityToDTO(customer);
     }
 
     @PostMapping("/employee")
-    public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = SimpleDTOMapper.map(employeeDTO, Employee.class);
-        return SimpleDTOMapper.map(this.employeeService.save(employee), EmployeeDTO.class);
+    public EmployeeDTO saveEmployee(@NotEmpty @RequestBody EmployeeDTO employeeDTO) {
+        Employee employee = this.employeeConverter.dtoToEntity(employeeDTO);
+        return this.employeeConverter.entityToDTO(this.employeeService.save(employee));
     }
 
     @GetMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
-        return SimpleDTOMapper.map(this.employeeService.findById(employeeId), EmployeeDTO.class);
+        return this.employeeConverter.entityToDTO(this.employeeService.findById(employeeId));
     }
 
     @PutMapping("/employee/{employeeId}")
@@ -62,7 +86,7 @@ public class UserController {
         return this.employeeService
             .findEmployeesForService(dto.getDate().getDayOfWeek(), dto.getSkills())
             .stream()
-            .map(employee -> SimpleDTOMapper.map(employee, EmployeeDTO.class))
+            .map(this.employeeConverter::entityToDTO)
             .collect(Collectors.toList());
     }
 
