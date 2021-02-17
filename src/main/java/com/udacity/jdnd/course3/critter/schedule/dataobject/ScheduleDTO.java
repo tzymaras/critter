@@ -1,8 +1,9 @@
-package com.udacity.jdnd.course3.critter.schedule;
+package com.udacity.jdnd.course3.critter.schedule.dataobject;
 
 import com.udacity.jdnd.course3.critter.user.dataobject.EmployeeSkill;
 import lombok.*;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -17,8 +18,16 @@ import java.util.Set;
 @Setter
 public class ScheduleDTO {
     private long id;
+
+    @NotEmpty
     private List<Long> employeeIds;
+
+    @NotEmpty
     private List<Long> petIds;
+
+    @NotNull
     private LocalDate date;
+
+    @NotEmpty
     private Set<EmployeeSkill> activities;
 }

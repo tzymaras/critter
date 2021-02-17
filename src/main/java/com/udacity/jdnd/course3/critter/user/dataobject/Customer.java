@@ -19,7 +19,6 @@ public class Customer {
     @GeneratedValue
     private long id;
 
-    @NotNull
     @NonNull
     @Nationalized
     @Type(type = "nstring")

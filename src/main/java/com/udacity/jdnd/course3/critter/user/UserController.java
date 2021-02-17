@@ -86,6 +86,7 @@ public class UserController {
         return this.employeeService
             .findEmployeesForService(dto.getDate().getDayOfWeek(), dto.getSkills())
             .stream()
+            .filter(employee -> employee.getSkills().containsAll(dto.getSkills()))
             .map(this.employeeConverter::entityToDTO)
             .collect(Collectors.toList());
     }

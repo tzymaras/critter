@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import com.udacity.jdnd.course3.critter.pet.*;
 import com.udacity.jdnd.course3.critter.pet.dataobject.*;
 import com.udacity.jdnd.course3.critter.schedule.*;
+import com.udacity.jdnd.course3.critter.schedule.dataobject.ScheduleDTO;
 import com.udacity.jdnd.course3.critter.user.UserController;
 import com.udacity.jdnd.course3.critter.user.dataobject.*;
 import org.junit.jupiter.api.*;

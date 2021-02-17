@@ -1,14 +1,16 @@
 package com.udacity.jdnd.course3.critter.pet.dataobject;
 
+import com.udacity.jdnd.course3.critter.schedule.dataobject.Schedule;
 import com.udacity.jdnd.course3.critter.user.dataobject.Customer;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.persistence.*;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,15 +25,17 @@ public class Pet {
     @Enumerated(EnumType.ORDINAL)
     private PetType type;
 
-    @NotNull
+    @NonNull
     @Nationalized
     @Column(length = 500)
     @Type(type = "nstring")
     private String name;
 
-    @Valid
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer owner;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Schedule> schedules;
 
     @PastOrPresent
     private LocalDate birthDate;

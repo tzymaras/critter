@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.udacity.jdnd.course3.critter.schedule.exception.ScheduleNotPossibleException;
 import lombok.*;
 import org.springframework.http.*;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class ErrorControllerAdvice {
     private static final String DEFAULT_VALIDATION_FAILED_MESSAGE = "validation failed";
     private static final String DEFAULT_JSON_PARSE_ERROR = "error when trying to parse JSON";
+    private static final String DEFAULT_SCHEDULE_NOT_POSSIBLE_MSG = "schedule not possible";
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
@@ -30,6 +32,12 @@ public class ErrorControllerAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
         ApiError apiError = new ApiError(DEFAULT_VALIDATION_FAILED_MESSAGE, List.of(DEFAULT_JSON_PARSE_ERROR));
+        return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ScheduleNotPossibleException.class)
+    protected ResponseEntity<Object> handleScheduleNotPossible(ScheduleNotPossibleException ex) {
+        ApiError apiError = new ApiError(DEFAULT_SCHEDULE_NOT_POSSIBLE_MSG, List.of(ex.getMessage()));
         return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 

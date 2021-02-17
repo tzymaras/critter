@@ -5,9 +5,11 @@ import com.udacity.jdnd.course3.critter.user.dataobject.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.*;
 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
     List<Pet> findPetsByOwner(Customer customer);
+
+    Set<Pet> findAllByIdIn(List<Long> petIds);
 }

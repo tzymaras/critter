@@ -1,13 +1,14 @@
 package com.udacity.jdnd.course3.critter.user.dataobject;
 
+import com.udacity.jdnd.course3.critter.schedule.dataobject.Schedule;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.validation.constraints.*;
+import javax.persistence.*;
 import java.time.DayOfWeek;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
@@ -17,22 +18,23 @@ import java.util.Set;
 public class Employee {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @NonNull
-    @NotBlank
     @Nationalized
     @Column(length = 500)
     @Type(type = "nstring")
     private String name;
 
-    @NotNull
+    @NonNull
     @ElementCollection
     @Enumerated(EnumType.ORDINAL)
-    @NonNull
     private Set<EmployeeSkill> skills;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private Set<DayOfWeek> daysAvailable;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Schedule> schedules;
 }

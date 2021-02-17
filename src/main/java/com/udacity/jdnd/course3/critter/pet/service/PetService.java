@@ -6,8 +6,10 @@ import com.udacity.jdnd.course3.critter.pet.repository.PetRepository;
 import com.udacity.jdnd.course3.critter.user.dataobject.Customer;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.*;
 
+@Transactional
 @Service
 public class PetService {
     private final PetRepository petRepository;
@@ -32,5 +34,13 @@ public class PetService {
 
     public List<Pet> findPetsByOwner(Customer customer) {
         return this.petRepository.findPetsByOwner(customer);
+    }
+
+    public Set<Pet> findAllByIdIn(List<Long> petIds) {
+        return this.petRepository.findAllByIdIn(petIds);
+    }
+
+    public Pet findById(Long id) {
+        return this.petRepository.findById(id).orElseThrow(() -> new PetNotFoundException(id));
     }
 }

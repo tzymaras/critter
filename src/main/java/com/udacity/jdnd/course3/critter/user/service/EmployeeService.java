@@ -43,10 +43,11 @@ public class EmployeeService {
 
     public List<Employee> findEmployeesForService(DayOfWeek dayOfWeek, Set<EmployeeSkill> skills) {
         return this.employeeRepository
-            .findDistinctByDaysAvailableIsAndSkillsIn(dayOfWeek, skills)
-            .orElseThrow(NoAvailableEmployeeFoundException::new)
-            .stream()
-            .filter(employee -> employee.getSkills().containsAll(skills))
-            .collect(Collectors.toList());
+            .findByDaysAvailableIsAndSkillsIn(dayOfWeek, skills)
+            .orElseThrow(NoAvailableEmployeeFoundException::new);
+    }
+
+    public List<Employee> findAllByIds(List<Long> employeeIds) {
+        return this.employeeRepository.findAllById(employeeIds);
     }
 }
