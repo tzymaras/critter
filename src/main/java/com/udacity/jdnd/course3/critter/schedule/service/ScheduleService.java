@@ -30,7 +30,7 @@ public class ScheduleService {
         return this.scheduleRepository.findSchedulesByPetsIn(petList);
     }
 
-    public List<Schedule> findAllSchedulesByEmployees(List<Employee> employees) {
-        return this.scheduleRepository.findSchedulesByEmployeesIn(employees);
+    public List<Schedule> findAllSchedulesByEmployee(Employee employee) {
+        return this.scheduleRepository.findSchedulesByEmployeesContains(employee);
     }
 }

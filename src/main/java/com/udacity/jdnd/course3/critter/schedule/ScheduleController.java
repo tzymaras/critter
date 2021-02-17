@@ -91,7 +91,7 @@ public class ScheduleController {
     public List<ScheduleDTO> getScheduleForEmployee(@PathVariable long employeeId) {
         Employee scheduleEmployee = this.employeeService.findById(employeeId);
 
-        return this.scheduleService.findAllSchedulesByEmployees(List.of(scheduleEmployee))
+        return this.scheduleService.findAllSchedulesByEmployee(scheduleEmployee)
             .stream()
             .map(this.scheduleConverter::entityToDTO)
             .collect(Collectors.toList());
