@@ -2,7 +2,7 @@ package com.udacity.jdnd.course3.critter.user.dataobject;
 
 import lombok.*;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**

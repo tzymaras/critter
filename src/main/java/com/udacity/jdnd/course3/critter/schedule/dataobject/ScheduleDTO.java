@@ -5,8 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents the form that schedule request and response data takes. Does not map

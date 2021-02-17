@@ -4,9 +4,8 @@ import com.udacity.jdnd.course3.critter.pet.dataobject.Pet;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity

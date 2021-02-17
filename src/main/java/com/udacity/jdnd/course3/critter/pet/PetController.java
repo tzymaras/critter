@@ -1,6 +1,6 @@
 package com.udacity.jdnd.course3.critter.pet;
 
-import com.udacity.jdnd.course3.critter.common.PetConverter;
+import com.udacity.jdnd.course3.critter.common.converter.PetConverter;
 import com.udacity.jdnd.course3.critter.pet.dataobject.*;
 import com.udacity.jdnd.course3.critter.pet.service.PetService;
 import com.udacity.jdnd.course3.critter.user.dataobject.Customer;
