@@ -42,7 +42,7 @@ public class EmployeeService {
 
     public List<Employee> findEmployeesForService(DayOfWeek dayOfWeek, Set<EmployeeSkill> skills) {
         return this.employeeRepository
-            .findByDaysAvailableIsAndSkillsIn(dayOfWeek, skills)
+            .findDistinctByDaysAvailableIsAndSkillsIn(dayOfWeek, skills)
             .orElseThrow(NoAvailableEmployeeFoundException::new);
     }
 

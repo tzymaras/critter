@@ -81,7 +81,7 @@ public class UserController {
         this.employeeService.setAvailability(daysAvailable, employeeId);
     }
 
-    @PostMapping("/employee/availability")
+    @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@Valid @RequestBody EmployeeRequestDTO dto) {
         return this.employeeService
             .findEmployeesForService(dto.getDate().getDayOfWeek(), dto.getSkills())
